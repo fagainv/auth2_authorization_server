@@ -28,7 +28,7 @@ sonarqube-check:
     - cd application
     - chmod +x mvnw
   script:
-    - ./mvnw verify sonar:sonar -Dsonar.qualitygate.wait=true -Dsonar.host.url=${SONAR_URL} -Dsonar.login=$Git_Sonarqube -Dsonar.projectKey=${PROJECT_KEY} -Dsonar.projectName=${PROJECT_NAME}
+    - ./mvnw verify -Plocal sonar:sonar -Dsonar.qualitygate.wait=true -Dsonar.host.url=${SONAR_URL} -Dsonar.login=$Git_Sonarqube -Dsonar.projectKey=${PROJECT_KEY} -Dsonar.projectName=${PROJECT_NAME}
   allow_failure: true  
   only:   
     - develop
