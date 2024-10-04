@@ -2,7 +2,7 @@ image: openjdk:21-slim-bullseye
 
 # global variables
 variables:
- ARTIFACT_NAME: "/application/target/oauth2-authorization-server.jar"
+ ARTIFACT_NAME: "oauth2-authorization-server.jar"
  
 stages:
   - sonar  
@@ -43,7 +43,7 @@ build:
   artifacts:
     expire_in: 15 mins 
     paths:      
-      - "$CI_PROJECT_DIR$ARTIFACT_NAME"
+      - $CI_PROJECT_DIR/application/target/$ARTIFACT_NAME
 
 deployment dev:
   <<: *deploy_gcp_template
