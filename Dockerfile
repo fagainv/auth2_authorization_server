@@ -1,4 +1,4 @@
-FROM openjdk:22-ea-21-slim-bullseye
+FROM openjdk:21-slim-bullseye
 
 COPY /application/target/${ARTIFACT_NAME} ./
 
