@@ -50,7 +50,7 @@ deployment dev:
   variables:
     JAVA_ENV: 'development'
     MIN_INSTANCES: '0'
-   MEMORY: '4Gi'
+    MEMORY: '4Gi'
     CPU: '1'
     GCP_PROJECT_ID: 'om-dev-mbusa-webapp-n-zmva'
     API_APP_NAME: 'oauth2-as-dev'
