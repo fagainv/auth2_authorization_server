@@ -2,7 +2,7 @@ image: openjdk:22-ea-21-slim-bullseye
 
 # global variables
 variables:
- ARTIFACT_NAME: "oauth2-authorization-server.jar"
+  ARTIFACT_NAME: "oauth2-authorization-server.jar"
  
 stages:
   - sonar  
@@ -46,13 +46,7 @@ build:
       - $CI_PROJECT_DIR/application/target/$ARTIFACT_NAME
 
 deployment_dev:
-  stage: deploy
-  image: google/cloud-sdk
-  script:
-    - echo $GCP_SERVICE_KEY > gcloud-service-key.json # Google Cloud service accounts  
-    - gcloud auth activate-service-account --key-file gcloud-service-key.json
-    - gcloud config set project $GCP_PROJECT_ID
-    - gcloud builds submit . --config=cloudbuild.yaml --substitutions=${SUBSTITUTIONS}
+  <<: *deploy_gcp_template
   variables:
     JAVA_ENV: 'development'
     MIN_INSTANCES: '0'
