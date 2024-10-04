@@ -2,7 +2,7 @@ FROM openjdk:21-slim-bullseye
 
 ARG ARTIFACT_NAME
 
-ENV JAR_FILE=${ARTIFACT_NAME}
+ENV JAR_FILE=oauth2-authorization-server.jar
 
 COPY /application/target/${ARTIFACT_NAME} ./
 
