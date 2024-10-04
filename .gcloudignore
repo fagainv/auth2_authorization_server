@@ -4,3 +4,9 @@ application/*
 application/target/classes/*
 .gitlab-ci.yml
 gcloud-service-key.json
+.git/**
+.gitattributes
+.gitignore
+.cloudbuild.yaml
+README.md
+.gitlab-ci.yml
