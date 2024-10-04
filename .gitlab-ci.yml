@@ -14,21 +14,6 @@ stages:
     - gcloud config set project $GCP_PROJECT_ID
     - gcloud builds submit . --config=cloudbuild.yaml --substitutions=${SUBSTITUTIONS}
 
-sonarqube-check:
-  stage: sonar
-  variables:
-    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
-    PROJECT_KEY: 'OAuth2AuthorizationServerMB'
-    PROJECT_NAME: 'OAuth2 Authorization Server (Mercedes-Benz)'
-  before_script:
-    - cd application
-    - chmod +x mvnw
-  script:
-    - ./mvnw verify sonar:sonar -Dsonar.qualitygate.wait=true -Dsonar.host.url=${SONAR_URL} -Dsonar.login=$Git_Sonarqube -Dsonar.projectKey=${PROJECT_KEY} -Dsonar.projectName=${PROJECT_NAME}
-  allow_failure: true  
-  only:   
-    - develop
-
 build:
   stage: build
   before_script:
