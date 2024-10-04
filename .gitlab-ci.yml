@@ -47,8 +47,7 @@ build:
 
 deployment_dev:
   <<: *deploy_gcp_template
-  variables:
-    JAVA_ENV: 'development'
+  variables:    
     MIN_INSTANCES: '0'
     MEMORY: '4Gi'
     CPU: '1'
