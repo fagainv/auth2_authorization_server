@@ -16,7 +16,7 @@ steps:
         '--port','8080', '--memory', '${_MEMORY}', '--cpu', '${_CPU}', '--min-instances', '${_MIN_INSTANCES}', '--concurrency', '500',
         '--cpu-boost', '--cpu-throttling',
         '--region', '${_APP_REGION}', '--platform', 'managed', '--allow-unauthenticated', 
-        '--set-env-vars', 'JAVA_ENVIRONMENT=${_JAVA_ENVIRONMENT}', 'ARTIFACT_NAME=${_ARTIFACT_NAME}',
+        '--set-env-vars', 'JAVA_ENVIRONMENT=${_JAVA_ENVIRONMENT},ARTIFACT_NAME=${_ARTIFACT_NAME}',
         '--vpc-connector', '${_SERVERLESS_CONNECTOR}',
       ]
 options:
