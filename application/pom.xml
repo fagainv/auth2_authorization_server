@@ -148,13 +148,7 @@
                 <plugins>
                     <plugin>
                         <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                        <configuration>
-                            <finalName>${project.artifactId}</finalName>
-                            <profiles>
-                                <profile>remote</profile>
-                            </profiles>
-                        </configuration>
+                        <artifactId>spring-boot-maven-plugin</artifactId>                    
                     </plugin>
                 </plugins>
             </build>
