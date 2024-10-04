@@ -2,7 +2,7 @@ FROM openjdk:21-slim-bullseye
 
 ARG ARTIFACT_NAME
 
-ENV ARTTIFACT_NAME=${ARTIFACT_NAME}
+ENV ARTIFACT_NAME=${ARTIFACT_NAME}
 
 COPY /application/target/${ARTIFACT_NAME} ./
 
