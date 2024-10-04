@@ -2,8 +2,10 @@ FROM openjdk:21-slim-bullseye
 
 ARG ARTIFACT_NAME
 
+ENV ARTTIFACT_NAME
+
 COPY /application/target/${ARTIFACT_NAME} ./
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "-Dspring.profiles.active=${JAVA_ENVIRONMENT}", "/${ARTIFACT_NAME1}"]
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "-Dspring.profiles.active=${JAVA_ENVIRONMENT}", "/${ARTIFACT_NAME}"]
