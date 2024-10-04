@@ -46,8 +46,8 @@ build:
       - $CI_PROJECT_DIR/application/target/$ARTIFACT_NAME
 
 deployment_dev:
-  <<: *deploy_gcp_template
-  variables:    
+  variables:
+    JAVA_ENV: 'development'
     MIN_INSTANCES: '0'
     MEMORY: '4Gi'
     CPU: '1'
@@ -56,5 +56,6 @@ deployment_dev:
     API_APP_REGION: 'us-central1'
     SVR_LESS_CONN: 'projects/om-n-vpc-ntgf/locations/us-central1/connectors/vpc-connector-us-central'
     SUBSTITUTIONS: '_MEMORY=$MEMORY,_CPU=$CPU,_MIN_INSTANCES=$MIN_INSTANCES,_SERVERLESS_CONNECTOR=$SVR_LESS_CONN,_APP_REGION=$API_APP_REGION,_APP_NAME=$API_APP_NAME,_PROJECT_ID=$GCP_PROJECT_ID,_JAVA_ENVIRONMENT=$JAVA_ENV',_ARTIFACT_NAME=$ARTIFACT_NAME
+  <<: *deploy_gcp_template    
   only:
     - develop
