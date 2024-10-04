@@ -1,6 +1,8 @@
 FROM openjdk:21-slim-bullseye
 
-COPY /application/target/${ARTIFACT_NAME} ./
+ARG ARTIFACT
+
+COPY ${ARTIFACT} ./
 
 EXPOSE 8080
 
