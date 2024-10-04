@@ -1,0 +1,22 @@
+spring: 
+  application:
+    name: oauth2-authorization-server
+  cloud:    
+    gcp:
+       secretmanager:
+         enabled: false
+    
+logging:
+  pattern: 
+    console: "[%d{MM/dd/yy hh:mm:ss:sss z}] [%t] %p %c %L: %m%n"
+  level:     
+    com.om.oauth2: DEBUG
+    org.springframework.security.web: ERROR  
+    org.hibernate.SQL: ERROR
+    org.hibernate.type: ERROR
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'info,health,refresh'

@@ -1,0 +1,10 @@
+.settings 
+.vscode
+.dccache
+application/src/.classpath
+application/src/.project
+application/target/*
+application/.factorypath
+application/.classpath
+application/.project
+application/.springBeans

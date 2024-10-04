@@ -1,0 +1,92 @@
+image: openjdk:22-ea-21-slim-bullseye
+
+# global variables
+variables:
+ ARTIFACT_NAME: "oauth2-authorization-server.jar"
+ 
+stages:
+  - sonar  
+  - build
+  - deploy
+
+.deploy gcp: &deploy_gcp_template
+  stage: deploy
+  image: google/cloud-sdk
+  script:
+    - echo $GCP_SERVICE_KEY > gcloud-service-key.json # Google Cloud service accounts  
+    - gcloud auth activate-service-account --key-file gcloud-service-key.json
+    - gcloud config set project $GCP_PROJECT_ID
+    - gcloud builds submit . --config=cloudbuild.yaml --substitutions=${SUBSTITUTIONS}
+
+sonarqube-check:
+  stage: sonar
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+    PROJECT_KEY: 'OAuth2AuthorizationServerMB'
+    PROJECT_NAME: 'OAuth2 Authorization Server (Mercedes-Benz)'
+  before_script:
+    - cd application
+    - chmod +x mvnw
+  script:
+    - ./mvnw verify sonar:sonar -Dsonar.qualitygate.wait=true -Dsonar.host.url=${SONAR_URL} -Dsonar.login=$Git_Sonarqube -Dsonar.projectKey=${PROJECT_KEY} -Dsonar.projectName=${PROJECT_NAME}
+  allow_failure: true  
+  only:   
+    - develop
+
+build:
+  stage: build
+  before_script:
+    - cd application
+    - chmod +x mvnw
+  script:         
+    - ./mvnw clean package -P remote
+  artifacts:
+    expire_in: 15 mins 
+    paths:      
+      - $CI_PROJECT_DIR/application/target/$ARTIFACT_NAME
+
+deployment dev:
+  <<: *deploy_gcp_template
+  variables:
+    JAVA_ENV: 'development'
+    MIN_INSTANCES: '0'
+    MEMORY: '4Gi'
+    CPU: '1'
+    GCP_PROJECT_ID: 'om-dev-mbusa-webapp-n-zmva'
+    API_APP_NAME: 'oauth2-as-dev'
+    API_APP_REGION: 'us-central1'
+    SVR_LESS_CONN: 'projects/om-n-vpc-ntgf/locations/us-central1/connectors/vpc-connector-us-central'
+    SUBSTITUTIONS: '_MEMORY=$MEMORY,_CPU=$CPU,_MIN_INSTANCES=$MIN_INSTANCES,_SERVERLESS_CONNECTOR=$SVR_LESS_CONN,_APP_REGION=$API_APP_REGION,_APP_NAME=$API_APP_NAME,_PROJECT_ID=$GCP_PROJECT_ID,_JAVA_ENVIRONMENT=$JAVA_ENV',_ARTIFACT_NAME=$ARTIFACT_NAME
+  only:
+    - develop
+
+deployment stage:
+  <<: *deploy_gcp_template
+  variables:
+    JAVA_ENV: 'stage'
+    MIN_INSTANCES: '1'
+    MEMORY: '4Gi'
+    CPU: '2'
+    GCP_PROJECT_ID: 'om-stg-mbusa-webapp-n-0v1s'
+    API_APP_NAME: 'oauth2-as-stg'
+    API_APP_REGION: 'us-central1'
+    SVR_LESS_CONN: 'projects/om-n-vpc-ntgf/locations/us-central1/connectors/vpc-connector-us-central'
+    SUBSTITUTIONS: '_MEMORY=$MEMORY,_CPU=$CPU,_MIN_INSTANCES=$MIN_INSTANCES,_SERVERLESS_CONNECTOR=$SVR_LESS_CONN,_APP_REGION=$API_APP_REGION,_APP_NAME=$API_APP_NAME,_PROJECT_ID=$GCP_PROJECT_ID,_JAVA_ENVIRONMENT=$JAVA_ENV'
+  only:
+    - stage
+  
+deployment production:
+  <<: *deploy_gcp_template
+  variables:
+    JAVA_ENV: 'production'
+    MIN_INSTANCES: '1'
+    MEMORY: '8Gi'
+    CPU: '4'
+    GCP_PROJECT_ID: 'om-prod-mbusa-webapp-p-vnyw'
+    API_APP_NAME: 'oauth2-as'
+    API_APP_REGION: 'us-east5'
+    SVR_LESS_CONN: 'projects/om-p-vpc-ntgf/locations/us-east5/connectors/serverless-vpc-connector'
+    SUBSTITUTIONS: '_MEMORY=$MEMORY,_CPU=$CPU,_MIN_INSTANCES=$MIN_INSTANCES,_SERVERLESS_CONNECTOR=$SVR_LESS_CONN,_APP_REGION=$API_APP_REGION,_APP_NAME=$API_APP_NAME,_PROJECT_ID=$GCP_PROJECT_ID,_JAVA_ENVIRONMENT=$JAVA_ENV'
+  when: manual
+  only:
+    - master

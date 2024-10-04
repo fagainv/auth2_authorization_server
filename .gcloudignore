@@ -1,0 +1,6 @@
+!application/
+application/*
+!application/target/
+application/target/classes/*
+.gitlab-ci.yml
+gcloud-service-key.json

@@ -1,0 +1,23 @@
+# File: cloudbuild.yaml
+steps:
+  # build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [ 'buildx', 'build', '--platform=linux/amd64', '-t', 
+        '${_APP_REGION}-docker.pkg.dev/${_PROJECT_ID}/artifact-registry/${_APP_NAME}', '.', 
+      ]
+      # push the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '${_APP_REGION}-docker.pkg.dev/${_PROJECT_ID}/artifact-registry/${_APP_NAME}']
+    # deploy to Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      [ 'run', 'deploy', '${_APP_NAME}', '--image', '${_APP_REGION}-docker.pkg.dev/${_PROJECT_ID}/artifact-registry/${_APP_NAME}',
+        '--port','8080', '--memory', '${_MEMORY}', '--cpu', '${_CPU}', '--min-instances', '${_MIN_INSTANCES}', '--concurrency', '500',
+        '--cpu-boost', '--cpu-throttling',
+        '--region', '${_APP_REGION}', '--platform', 'managed', '--allow-unauthenticated', 
+        '--set-env-vars', 'JAVA_ENVIRONMENT=${_JAVA_ENVIRONMENT}', 'ARTIFACT_NAME=${_ARTIFACT_NAME}',
+        '--vpc-connector', '${_SERVERLESS_CONNECTOR}',
+      ]
+options:
+  logging: CLOUD_LOGGING_ONLY
