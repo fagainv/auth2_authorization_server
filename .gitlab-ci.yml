@@ -1,9 +1,5 @@
 image: openjdk:22-ea-21-slim-bullseye
 
-# global variables
-variables:
-  ARTIFACT_NAME: "oauth2-authorization-server.jar"
- 
 stages:
   - sonar  
   - build
@@ -43,11 +39,12 @@ build:
   artifacts:
     expire_in: 15 mins 
     paths:      
-      - $CI_PROJECT_DIR/application/target/$ARTIFACT_NAME
+      - $CI_PROJECT_DIR/application/target/oauth2-authorization-server.jar
 
 deployment_dev:
   variables:
     JAVA_ENV: 'development'
+    ARTIFACT_NAME: 'oauth2-authorization-server.jar'
     MIN_INSTANCES: '0'
     MEMORY: '4Gi'
     CPU: '1'
