@@ -45,7 +45,7 @@ build:
     paths:      
       - $CI_PROJECT_DIR/application/target/$ARTIFACT_NAME
 
-deployment dev:
+deployment_dev:
   <<: *deploy_gcp_template
   variables:
     JAVA_ENV: 'development'
