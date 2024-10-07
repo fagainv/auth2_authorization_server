@@ -49,12 +49,12 @@ public class RegisteredClientRepositoryImpl implements RegisteredClientRepositor
 		
 	}
 	
-	private TokenSettings getTokenSettings() {
+	private TokenSettings getTokenSettings(RegisteredClientEntity entity) {
 		return TokenSettings.builder()
 				.accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED)
-				.accessTokenTimeToLive(Duration.ofMinutes(30))
-				.authorizationCodeTimeToLive(Duration.ofMinutes(10))
-				.refreshTokenTimeToLive(Duration.ofDays(30))
+				.accessTokenTimeToLive(Duration.ofMinutes(entity.getTokenSettingsEntity().getAccessTokenTimeToLive()))
+				.authorizationCodeTimeToLive(Duration.ofMinutes(entity.getTokenSettingsEntity().getAuthorizationCodeTimeToLive()))
+				.refreshTokenTimeToLive(Duration.ofDays(entity.getTokenSettingsEntity().getRefreshTokenTimeToLive()))
 				.reuseRefreshTokens(false)
 				.build();
 	}
@@ -80,6 +80,7 @@ public class RegisteredClientRepositoryImpl implements RegisteredClientRepositor
 				.redirectUris(convertToConsumerSetString(entity.getRedirectUris(), ","))
 				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
 				.scopes(convertToConsumerSetString(entity.getScopes(), ","))
+				.tokenSettings(getTokenSettings(entity))
 				.build();
 	}
 	
