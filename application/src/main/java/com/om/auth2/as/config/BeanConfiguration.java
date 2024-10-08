@@ -59,7 +59,7 @@ public class BeanConfiguration {
 	@Bean
 	AuthorizationServerSettings providerSettings() {
 		
-		return AuthorizationServerSettings.builder().issuer("http://localhost:9000").build();
+		return AuthorizationServerSettings.builder().issuer("https://oauth2-as-dev-1018859270373.us-central1.run.app").build();
 	}
 	
 	
