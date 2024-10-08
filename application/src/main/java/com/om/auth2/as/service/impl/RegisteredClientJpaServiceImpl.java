@@ -1,5 +1,7 @@
 package com.om.auth2.as.service.impl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +31,13 @@ public class RegisteredClientJpaServiceImpl implements RegisteredClientJpaServic
 
 	@Override
 	public RegisteredClientEntity update(RegisteredClientEntity registeredClientEntity) {
+		Optional<RegisteredClientEntity> entityFromDB = 
+				registeredClientJpaRepository.findById(registeredClientEntity.getId());
+		
+		if (!entityFromDB.get().getClientSecret().equalsIgnoreCase(entityFromDB.get().getClientSecret())) {
+			registeredClientEntity.setClientSecret(passwordEncoder.encode(registeredClientEntity.getClientSecret()));			
+		}
+
 		return registeredClientJpaRepository.save(registeredClientEntity);
 	}
 

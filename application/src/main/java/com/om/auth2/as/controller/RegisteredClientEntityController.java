@@ -30,7 +30,7 @@ public class RegisteredClientEntityController {
 	}
 	@PutMapping("/registered-client")
 	public RegisteredClientEntity update(@RequestBody RegisteredClientEntity registeredClientEntity) {
-		return registeredClientJpaService.save(registeredClientEntity);
+		return registeredClientJpaService.update(registeredClientEntity);
 	}
 
 
