@@ -7,6 +7,9 @@ import org.springframework.security.oauth2.server.authorization.settings.OAuth2T
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings.Builder;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -90,6 +93,7 @@ public class TokenSettingsEntity {
 	
 	@OneToOne()
 	@JoinColumn(name = "REGISTERED_CLIENT_ID")
+	@JsonBackReference
 	private RegisteredClientEntity registeredClientEntity;
 
 }

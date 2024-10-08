@@ -27,8 +27,7 @@ public class SecurityConfig {
 		OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
 		http.getConfigurer(OAuth2AuthorizationServerConfigurer.class).oidc(Customizer.withDefaults());
 		http.exceptionHandling(
-				(exceptions) -> exceptions.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")))
-				.oauth2ResourceServer((resourceServer) -> resourceServer.jwt(Customizer.withDefaults()));
+				(exceptions) -> exceptions.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")));
 
 		return http.build();
 
@@ -41,6 +40,7 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(
 				(authorize) -> authorize.requestMatchers("/webjars/**").permitAll().anyRequest().authenticated())
 				.formLogin((formLoginConfigurer) -> formLoginConfigurer.loginPage("/login").permitAll());
+		http.csrf(csrf -> csrf.disable());
 		return http.build();
 	}
 

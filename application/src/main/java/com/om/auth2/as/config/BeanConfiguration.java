@@ -16,8 +16,6 @@ import org.springframework.context.annotation.Role;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 
 import com.nimbusds.jose.jwk.JWKSet;
@@ -53,12 +51,7 @@ public class BeanConfiguration {
 		JWKSet jwkSet = new JWKSet(rsaKey);
 		return new ImmutableJWKSet<>(jwkSet);
 	}
-	
-	@Bean
-	JwtDecoder jwtDecoder(KeyPair keyPair) {
-		return NimbusJwtDecoder.withPublicKey((RSAPublicKey) keyPair.getPublic()).build();
-	}
-	
+
 	@Bean
 	AuthorizationServerSettings providerSettings() {
 		

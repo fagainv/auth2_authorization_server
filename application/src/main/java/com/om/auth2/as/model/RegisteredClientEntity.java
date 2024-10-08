@@ -1,5 +1,7 @@
 package com.om.auth2.as.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -45,6 +47,7 @@ public class RegisteredClientEntity {
 	private String scopes;
 	@OneToOne(mappedBy = "registeredClientEntity", fetch = FetchType.EAGER,  cascade = CascadeType.ALL)
 	@JoinColumn(name = "TOKEN_SETTINGS_ENTITY_ID")	
+	@JsonManagedReference
 	private TokenSettingsEntity tokenSettingsEntity;
 	
 

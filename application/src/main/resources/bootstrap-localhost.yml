@@ -1,7 +1,9 @@
 spring: 
   application:
     name: oauth2-authorization-server
-  cloud:    
+  cloud:
+    config:
+       uri: ${spring.cloud.config.uri} 
     gcp:
        secretmanager:
          enabled: false
