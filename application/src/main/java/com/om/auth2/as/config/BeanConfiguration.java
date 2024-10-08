@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +29,8 @@ import com.nimbusds.jose.proc.SecurityContext;
 @Configuration
 public class BeanConfiguration {
 
+	@Value("${authorizationServerSettingsIssuer}")
+	private String authorizationServerSettingsIssuer;
 	
 	@Bean
 	PasswordEncoder passwordEncoder() {
@@ -59,7 +62,7 @@ public class BeanConfiguration {
 	@Bean
 	AuthorizationServerSettings providerSettings() {
 		
-		return AuthorizationServerSettings.builder().issuer("https://oauth2-as-dev-1018859270373.us-central1.run.app").build();
+		return AuthorizationServerSettings.builder().issuer(authorizationServerSettingsIssuer).build();															
 	}
 	
 	
