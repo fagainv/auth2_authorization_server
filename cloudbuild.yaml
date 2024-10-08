@@ -10,11 +10,7 @@ steps:
       - '${_APP_REGION}-docker.pkg.dev/${_PROJECT_ID}/artifact-registry/${_APP_NAME}'
       - '--build-arg'
       - 'ARTIFACT_NAME=${_ARTIFACT_NAME}'
-      - '.'
-      
-      #[ 'buildx', 'build', '--platform=linux/amd64', '--build-arg', 'ARTIFACT=${_ARTIFACT_NAME}', '-t', 
-      #  '${_APP_REGION}-docker.pkg.dev/${_PROJECT_ID}/artifact-registry/${_APP_NAME}', '.', 
-      #]
+      - '.'     
       # push the container image
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', '${_APP_REGION}-docker.pkg.dev/${_PROJECT_ID}/artifact-registry/${_APP_NAME}']
