@@ -38,7 +38,7 @@ public class RegisteredClientJpaServiceImpl implements RegisteredClientJpaServic
 		Optional<RegisteredClientEntity> entityFromDB = 
 				registeredClientJpaRepository.findById(registeredClientEntity.getId());
 		
-		if (!entityFromDB.get().getClientSecret().equals(entityFromDB.get().getClientSecret())) {
+		if (!registeredClientEntity.getClientSecret().equals(entityFromDB.get().getClientSecret())) {
 			registeredClientEntity.setClientSecret(passwordEncoder.encode(registeredClientEntity.getClientSecret()));			
 		}
 
