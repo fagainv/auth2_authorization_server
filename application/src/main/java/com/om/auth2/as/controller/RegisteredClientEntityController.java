@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.om.auth2.as.model.RegisteredClientEntity;
 import com.om.auth2.as.service.RegisteredClientJpaService;
 
+import jakarta.websocket.server.PathParam;
+
 @RestController
 public class RegisteredClientEntityController {
 	
@@ -31,6 +33,11 @@ public class RegisteredClientEntityController {
 	@PutMapping("/registered-client")
 	public RegisteredClientEntity update(@RequestBody RegisteredClientEntity registeredClientEntity) {
 		return registeredClientJpaService.update(registeredClientEntity);
+	}
+	
+	@DeleteMapping("/registered-client/{id}")
+	public RegisteredClientEntity delete(@PathParam("id") Long registeredClientId) {
+		return registeredClientJpaService.deleteById(registeredClientId);
 	}
 
 

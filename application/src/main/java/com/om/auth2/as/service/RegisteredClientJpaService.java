@@ -21,4 +21,5 @@ public interface RegisteredClientJpaService {
 	
 	Page<RegisteredClientEntity> findAll(Pageable pageable);
 
+	void deleteById(Long registeredClientId);
 }
