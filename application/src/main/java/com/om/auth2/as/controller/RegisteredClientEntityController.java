@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.om.auth2.as.model.RegisteredClientEntity;
 import com.om.auth2.as.service.RegisteredClientJpaService;
 
-import jakarta.websocket.server.PathParam;
-
 @RestController
 public class RegisteredClientEntityController {
 	
