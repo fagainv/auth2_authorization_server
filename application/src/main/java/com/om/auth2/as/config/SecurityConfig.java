@@ -38,9 +38,8 @@ public class SecurityConfig {
 	SecurityFilterChain standardSecurityFilterChain(HttpSecurity http) throws Exception {
 
 		http.authorizeHttpRequests(
-				(authorize) -> authorize.requestMatchers("/webjars/**").permitAll().anyRequest().authenticated())
-				.formLogin((formLoginConfigurer) -> formLoginConfigurer.loginPage("/login").permitAll());
-		http.csrf(csrf -> csrf.disable());
+				(authorize) -> authorize.requestMatchers("/webjars/**", "/login").permitAll().anyRequest().authenticated())
+				.formLogin((formLoginConfigurer) -> formLoginConfigurer.loginPage("/login").permitAll());		
 		return http.build();
 	}
 
