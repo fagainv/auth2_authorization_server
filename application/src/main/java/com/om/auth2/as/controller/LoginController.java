@@ -12,7 +12,7 @@ public class LoginController {
 	
 	@GetMapping("/login")
 	public String getLoginPage(@RequestParam(value = "username", required = false) String username, Model model) {
-		
+		System.out.println("**********username: " + username);
 		model.addAttribute("username", username);
 		return "login";
 		
