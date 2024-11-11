@@ -10,3 +10,10 @@
     url('./fonts/SVG/DaimlerCAC-Regular.svg') format('svg');
     }
     
+    
+    .om-font-family {
+        font-family: "DaimlerCSArab-Regular"!important;
+    }
+    .om-font-family-dcacr {
+        font-family: "DaimlerCAC-Regular";
+    }
