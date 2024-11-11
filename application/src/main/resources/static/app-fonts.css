@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'DaimlerCAC-Regular';
+    src: url('./fonts/WOFF/DaimlerCAC-Regular.woff') format('woff'),
+    url('./fonts/SVG/DaimlerCAC-Regular.svg') format('svg'); /* Legacy iOS */
+    }
+    
+    @font-face {
+    font-family: 'DaimlerCSArab-Regular';
+    src: url('./fonts/WOFF/DaimlerCSArab-Regular.woff') format('woff'),
+    url('./fonts/SVG/DaimlerCAC-Regular.svg') format('svg');
+    }
+    

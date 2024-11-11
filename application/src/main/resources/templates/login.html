@@ -4,14 +4,15 @@
     <meta charset="utf=8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>MB StarRewards</title>
-    <link href="webjars/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />      
+    <link href="webjars/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />    
+    <link href="/app-fonts.css" rel="stylesheet"/>  
 </head>
 
 <body class="bg-black text-light">
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="row">
             <div class="col-md-12">
-                <form name"f" th:action="@{/login}" method="post" class="form-signin">                  
+                <form name"f" th:action="@{/login}" method="post" class="form-signin om-font-family-dcacr">                  
                     <h1>MB StarRewards</h1>
                     <h3 class="h3 mb-3 font-weight-normal text-center">Login</h3>
                     <div th:if="${param.error}" class="alert alert-danger" role="alert">Invalid credentials</div>
@@ -24,7 +25,7 @@
                         <input type="password" id="password" name="password" class="form-control mb-3"
                             placeholder="Password" />
                     </div>
-                    <div class="text-center">
+                    <div class="text-center om-font-family">
                         <button type="submit" class="btn btn-primary">Log in</button>
                     </div>
                 </form>
